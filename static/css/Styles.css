@@ -56,6 +56,11 @@ button:hover {
   left: 0;
   top: 0;
 }
+.SoundButton {
+  left: 0;
+  top: 50px;
+}
+
 .Hidden {
   display: none;
 }

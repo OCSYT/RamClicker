@@ -6,6 +6,7 @@ const Menu = document.getElementById("Menu");
 const ShopContent = document.getElementById("ShopContent");
 const NotificationsContainer = document.getElementById("Notifications");
 const RAMPerSecondCounter = document.getElementById("RAMPerSecondCounter");
+const SoundIcon = document.getElementById("SoundIcon");
 
 function Notification(Message) {
   const NotificationElement = document.createElement("h1");
@@ -33,9 +34,31 @@ const NameOverrides = {
 
 const DefaultPlayerData = {
   RAMClicks: 0,
+  Sound: true,
   CurrentUpgrades: [],
 };
 let CurrentPlayerData = Object.assign({}, DefaultPlayerData);
+
+function ToggleSound() {
+  CurrentPlayerData.Sound = !CurrentPlayerData.Sound;
+  if (CurrentPlayerData.Sound) {
+    Notification("Sound enabled.");
+  } else {
+    Notification("Sound disabled.");
+  }
+  UpdateSoundIcon(CurrentPlayerData.Sound);
+}
+function UpdateSoundIcon(Status){
+  if(Status){
+    SoundIcon.classList.add("fa-volume-high");
+    SoundIcon.classList.remove("fa-volume-xmark");
+  }
+  else{
+    SoundIcon.classList.add("fa-volume-xmark");
+    SoundIcon.classList.remove("fa-volume-high");
+  }
+}
+
 function SaveGame() {
   localStorage.setItem("RAMClickerSave", JSON.stringify(CurrentPlayerData));
   Notification("Game saved.");
@@ -51,6 +74,7 @@ function LoadGame() {
   } else {
     Notification("No saved game found.");
   }
+  UpdateSoundIcon(CurrentPlayerData.Sound);
 }
 function ResetGame() {
   if (confirm("Are you sure you want to reset the game?")) {
@@ -183,10 +207,12 @@ function UpdateRAMCounter(RAMIncrease) {
   RAMPerSecondCounter.innerText = `RAM/s: ${TotalRAMPerSecond.toFixed(2)}`;
 
   if (RAMIncrease === 0) return;
-    const ClickSound = new Audio('./static/sounds/RamClick.wav');
+  if (CurrentPlayerData.Sound) {
+    const ClickSound = new Audio("./static/sounds/RamClick.wav");
     ClickSound.pause();
     ClickSound.currentTime = 0;
     ClickSound.play();
+  }
 
   if (LastRAMNotification) {
     LastRAMNotification.remove();
