@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1e1f24;
+    color: white;
+}
+.Padding-Medium{
+    padding: 20px;
+}
+.CenterText{
+    text-align: center;
+}
+.Center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
