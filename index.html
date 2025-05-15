@@ -1,15 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ram Clicker</title>
-    <link rel="stylesheet" href="./static/css/Styles.css">
-    <script src="./static/js/Script.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RAM Clicker</title>
+    <link rel="stylesheet" href="./static/css/Styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script defer src="./static/js/Main.js"></script>
+  </head>
+  <body>
     <div class="CenterText Padding-Medium">
-        <h1>Ram Clicker</h1>
+      <h1 class="Accent">RAM Clicker</h1>
+      <h1 id="RAMCounter">Current RAM: 0</h1>
+      <h1 id="RAMPerSecondCounter">RAM/s: 0</h1>
     </div>
-</body>
+
+    <!-- Container for dynamically increasing RAM elements -->
+    <div class="Center">
+      <div class="Absolute" id="RAMIncreaseParent"></div>
+      <div id="RAM">
+        <img
+          height="300px"
+          class="RAM"
+          src="./static/images/RamImage.svg"
+          alt="RAM Image"
+          class="Image-Responsive"
+        />
+      </div>
+    </div>
+
+    <div id="Menu" class="Menu Hidden">
+      <h1 class="Padding-Medium Accent">Menu</h1>
+      <div class="Break"></div>
+      <div class="CenterText">
+        <h1 class="Padding-Medium Accent">Settings</h1>
+        <button onclick="SaveGame()">Save Data</button>
+        <button onclick="ResetGame()">Clear Data</button>
+      </div>
+      <div class="Break"></div>
+      <h1 class="CenterText Padding-Medium Accent">Shop</h1>
+      <div id="ShopContent" class="CenterText"></div>
+      <div class="Break"></div>
+    </div>
+
+    <button onclick="ToggleMenu()" class="Absolute MenuButton Padding-Medium">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+        <button onclick="ToggleSound()" class="Absolute SoundButton Padding-Medium">
+        <i id="SoundIcon" class="fa-solid fa-volume-high"></i>
+    </button>
+
+    <div id="Notifications"></div>
+  </body>
 </html>
