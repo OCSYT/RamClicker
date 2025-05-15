@@ -77,8 +77,10 @@ function LoadGame() {
   UpdateSoundIcon(CurrentPlayerData.Sound);
 }
 function ResetGame() {
+  const PrevSound = CurrentPlayerData.Sound;
   if (confirm("Are you sure you want to reset the game?")) {
     CurrentPlayerData = Object.assign({}, DefaultPlayerData);
+    CurrentPlayerData.Sound = PrevSound;
     localStorage.removeItem("RAMClickerSave");
     UpdateRAMCounter(0);
     UpdateShopAvailability();
