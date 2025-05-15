@@ -5,15 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ram Clicker</title>
     <link rel="stylesheet" href="./static/css/Styles.css" />
-    <script defer src="./static/js/Main.JS"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script defer src="./static/js/Main.js"></script>
   </head>
   <body>
     <div class="CenterText Padding-Medium">
-      <h1>Ram Clicker</h1>
+      <h1 class="Accent">Ram Clicker</h1>
+      <h1 id="RamCounter">Current Ram: 0</h1>
     </div>
+
+    <!-- Container for dynamically increasing Ram elements -->
     <div class="Center">
+      <div class="Absolute" id="RamIncreaseParent"></div>
       <div id="Ram">
         <img
+        height="300px"
           class="Ram"
           src="./static/images/RamImage.svg"
           alt="Ram Image"
@@ -21,5 +30,22 @@
         />
       </div>
     </div>
+
+    <div id="Menu" class="Menu Hidden">
+      <h1 class="Padding-Medium Accent">Menu</h1>
+      <div class="Break"></div>
+      <div class="CenterText">
+        <h1 class="Padding-Medium Accent">Settings</h1>
+        <button>Save Data</button>
+        <button>Clear Data</button>
+      </div>
+      <div class="Break"></div>
+      <h1 class="CenterText Padding-Medium Accent">Shop</h1>
+      <div id="ShopContent" class="CenterText"></div>
+      <div class="Break"></div>
+    </div>
+    <button onclick="ToggleMenu()" class="Absolute MenuButton Padding-Medium">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </body>
 </html>
