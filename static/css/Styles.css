@@ -21,10 +21,10 @@ button {
   font-size: 25px;
   margin: 5px;
 }
-button:disabled{
+button:disabled {
   color: red;
 }
-.HasUpgrade{
+.HasUpgrade {
   color: rgb(0, 255, 0) !important;
   pointer-events: none;
 }
@@ -66,7 +66,7 @@ button:hover {
 .Absolute {
   position: absolute;
 }
-.Break{
+.Break {
   margin-top: 10%;
 }
 .CenterText {
@@ -83,12 +83,12 @@ button:hover {
   height: 100vh;
   flex-direction: column;
 }
-.Ram {
+.RAM {
   rotate: 25deg;
-  animation: RamAnimation ease-in-out 2s infinite;
+  animation: RAMAnimation ease-in-out 2s infinite;
 }
 
-@keyframes RamAnimation {
+@keyframes RAMAnimation {
   0% {
     transform: translateY(5px);
   }
@@ -100,10 +100,10 @@ button:hover {
   }
 }
 
-.RamClick {
-  animation: RamClickAnimation ease-in-out 0.1s;
+.RAMClick {
+  animation: RAMClickAnimation ease-in-out 0.1s;
 }
-@keyframes RamClickAnimation {
+@keyframes RAMClickAnimation {
   0% {
     transform: scale(1);
   }
@@ -114,19 +114,33 @@ button:hover {
     transform: scale(1);
   }
 }
-.RamIncreaseStyle {
+.RAMIncreaseStyle {
   text-align: center;
   transform: translateY(-150px);
   opacity: 0;
   text-align: center;
 }
-.RamIncrease {
-  animation: RamIncreaseAnimation ease-in-out 0.5s forwards;
+
+#Notifications{
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  z-index: 10;
+  transform: translateY(300px);
 }
-@keyframes RamIncreaseAnimation {
+
+.Notification {
+  position: relative;
+  animation: NotificationAnimation ease-in-out 1s forwards;
+}
+@keyframes NotificationAnimation {
   0% {
     transform: translateY(-150px);
     opacity: 0;
+  }
+  15% {
+    transform: translateY(-300px);
+    opacity: 1;
   }
   50% {
     transform: translateY(-300px);

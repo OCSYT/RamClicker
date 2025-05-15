@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ram Clicker</title>
+    <title>RAM Clicker</title>
     <link rel="stylesheet" href="./static/css/Styles.css" />
     <link
       rel="stylesheet"
@@ -13,19 +13,20 @@
   </head>
   <body>
     <div class="CenterText Padding-Medium">
-      <h1 class="Accent">Ram Clicker</h1>
-      <h1 id="RamCounter">Current Ram: 0</h1>
+      <h1 class="Accent">RAM Clicker</h1>
+      <h1 id="RAMCounter">Current RAM: 0</h1>
+      <h1 id="RAMPerSecondCounter">RAM/s: 0</h1>
     </div>
 
-    <!-- Container for dynamically increasing Ram elements -->
+    <!-- Container for dynamically increasing RAM elements -->
     <div class="Center">
-      <div class="Absolute" id="RamIncreaseParent"></div>
-      <div id="Ram">
+      <div class="Absolute" id="RAMIncreaseParent"></div>
+      <div id="RAM">
         <img
-        height="300px"
-          class="Ram"
+          height="300px"
+          class="RAM"
           src="./static/images/RamImage.svg"
-          alt="Ram Image"
+          alt="RAM Image"
           class="Image-Responsive"
         />
       </div>
@@ -36,8 +37,8 @@
       <div class="Break"></div>
       <div class="CenterText">
         <h1 class="Padding-Medium Accent">Settings</h1>
-        <button>Save Data</button>
-        <button>Clear Data</button>
+        <button onclick="SaveGame()">Save Data</button>
+        <button onclick="ResetGame()">Clear Data</button>
       </div>
       <div class="Break"></div>
       <h1 class="CenterText Padding-Medium Accent">Shop</h1>
@@ -47,5 +48,7 @@
     <button onclick="ToggleMenu()" class="Absolute MenuButton Padding-Medium">
       <i class="fa-solid fa-bars"></i>
     </button>
+
+    <div id="Notifications"></div>
   </body>
 </html>
