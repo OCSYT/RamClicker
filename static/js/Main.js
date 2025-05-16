@@ -149,20 +149,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const API_URL = "https://cookie-upgrade-api.vercel.app/api/upgrades";
 
-RAMElement.addEventListener("click", handleRAMClick);
+RAMElement.addEventListener("click", HandleRAMClick);
 RAMElement.addEventListener("animationend", () => {
   RAMElement.classList.remove("RAMClick");
 });
 
-ShopContent.addEventListener("click", handleShopClick);
+ShopContent.addEventListener("click", HandleShopClick);
 
-function handleRAMClick() {
+function HandleRAMClick() {
   RAMElement.classList.add("RAMClick");
   CurrentPlayerData.RAMClicks += 1;
   UpdateRAMCounter(1);
 }
 
-function handleShopClick(event) {
+function HandleShopClick(event) {
   const ShopItem = event.target;
   if (ShopItem.tagName === "BUTTON") {
     const ItemCost = parseInt(ShopItem.dataset.cost);
