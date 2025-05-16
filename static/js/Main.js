@@ -7,6 +7,61 @@ const ShopContent = document.getElementById("ShopContent");
 const NotificationsContainer = document.getElementById("Notifications");
 const RAMPerSecondCounter = document.getElementById("RAMPerSecondCounter");
 const SoundIcon = document.getElementById("SoundIcon");
+const FallingRamContainer = document.getElementById("FallingRamContainer");
+const RamImageSrc = "./static/images/RamImage.svg";
+let RamSticks = [];
+
+function GetRandomInt(Max) {
+  return Math.floor(Math.random() * Max);
+}
+
+function SpawnRamStick() {
+  const Scale = 0.15 + Math.random() * 0.15;
+  const RamStick = document.createElement("img");
+  RamStick.src = RamImageSrc;
+  RamStick.className = "FallingRamStick";
+  RamStick.style.position = "absolute";
+  RamStick.style.left = Math.random() * window.innerWidth + "px";
+  RamStick.style.top = "-100px";
+  RamStick.style.width = 300 * Scale + "px";
+  RamStick.style.pointerEvents = "none";
+  RamStick.dataset.speed = 1 + Math.random() * 2;
+  RamStick.dataset.angle = Math.random() * Math.PI * 2;
+  RamStick.dataset.spin = (1 + Math.random() * 2) / 50;
+  RamStick.dataset.scale = Scale;
+  FallingRamContainer.appendChild(RamStick);
+  RamSticks.push(RamStick);
+}
+
+function UpdateRamSticks() {
+  for (let i = RamSticks.length - 1; i >= 0; i--) {
+    const RamStick = RamSticks[i];
+    let top = parseFloat(RamStick.style.top);
+    let angle = parseFloat(RamStick.dataset.angle);
+    top += parseFloat(RamStick.dataset.speed);
+    angle += parseFloat(RamStick.dataset.spin) * 0.5;
+    RamStick.style.top = top + "px";
+    RamStick.style.transform = `rotate(${angle}rad)`;
+    RamStick.dataset.angle = angle;
+    if (top - parseFloat(RamStick.style.height) > window.innerHeight) {
+      FallingRamContainer.removeChild(RamStick);
+      RamSticks.splice(i, 1);
+    }
+  }
+}
+
+function AnimateRamSticks() {
+  UpdateRamSticks();
+  requestAnimationFrame(AnimateRamSticks);
+}
+
+AnimateRamSticks();
+
+document.addEventListener("keydown", (Event) => {
+  if (Event.key === "Escape") {
+    ToggleMenu();
+  }
+});
 
 function Notification(Message) {
   const NotificationElement = document.createElement("h1");
@@ -48,12 +103,11 @@ function ToggleSound() {
   }
   UpdateSoundIcon(CurrentPlayerData.Sound);
 }
-function UpdateSoundIcon(Status){
-  if(Status){
+function UpdateSoundIcon(Status) {
+  if (Status) {
     SoundIcon.classList.add("fa-volume-high");
     SoundIcon.classList.remove("fa-volume-xmark");
-  }
-  else{
+  } else {
     SoundIcon.classList.add("fa-volume-xmark");
     SoundIcon.classList.remove("fa-volume-high");
   }
@@ -207,6 +261,9 @@ function UpdateRAMCounter(RAMIncrease) {
   RAMPerSecondCounter.innerText = `RAM/s: ${TotalRAMPerSecond.toFixed(2)}`;
 
   if (RAMIncrease === 0) return;
+  if (document.hasFocus()) {
+    SpawnRamStick();
+  }
   if (CurrentPlayerData.Sound) {
     const ClickSound = new Audio("./static/sounds/RamClick.wav");
     ClickSound.pause();

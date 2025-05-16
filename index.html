@@ -12,7 +12,10 @@
     <script defer src="./static/js/Main.js"></script>
   </head>
   <body>
-    <div class="CenterText Padding-Medium">
+
+
+    <div id="FallingRamContainer" class="FallingRamContainer"></div>
+    <div class="CenterText Padding-Medium No-Select">
       <h1 class="Accent">RAM Clicker</h1>
       <h1 id="RAMCounter">Current RAM: 0</h1>
       <h1 id="RAMPerSecondCounter">RAM/s: 0</h1>
@@ -20,16 +23,19 @@
 
     <!-- Container for dynamically increasing RAM elements -->
     <div class="Center">
-      <div class="Absolute" id="RAMIncreaseParent"></div>
-      <div id="RAM">
+
+      <div class="Absolute No-Select" id="RAMIncreaseParent"></div>
+
+      <div class="No-Select" id="RAM">
         <img
           height="300px"
-          class="RAM"
+          class="RAM No-Select"
           src="./static/images/RamImage.svg"
           alt="RAM Image"
           class="Image-Responsive"
         />
       </div>
+      <div class="Shadow"></div>
     </div>
 
     <div id="Menu" class="Menu Hidden">
@@ -53,6 +59,6 @@
         <i id="SoundIcon" class="fa-solid fa-volume-high"></i>
     </button>
 
-    <div id="Notifications"></div>
+    <div id="Notifications" class="No-Select"></div>
   </body>
 </html>
