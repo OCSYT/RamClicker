@@ -3,15 +3,20 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  font-family: "Courier New", Courier, monospace;
+body,html  {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+body{
+    font-family: "Courier New", Courier, monospace;
   background-color: #1e1f24;
   color: white;
   background-repeat: repeat;
   background-size: 60px 60px;
   background-image: linear-gradient(to right, #26282e 1px, transparent 1px),
     linear-gradient(to bottom, #26282e 1px, transparent 1px);
-  overflow: hidden;
 }
 
 button {
@@ -50,7 +55,7 @@ button:hover {
   left: 0;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow: scroll;
 }
 .MenuButton {
   left: 0;
@@ -133,10 +138,12 @@ button:hover {
 
 #Notifications {
   position: absolute;
-  right: 50px;
+  right: 0;
+  padding: 10px;
   bottom: 50px;
   z-index: 10;
   transform: translateY(300px);
+  text-align: right;
 }
 
 .Notification {
@@ -191,4 +198,12 @@ button:hover {
   z-index: -1;
   pointer-events: none;
   filter: brightness(0.5);
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+  body, html{
+    font-size: 10px;
+  }
 }

@@ -8,53 +8,79 @@ const RAMPerSecondCounter = document.getElementById("RAMPerSecondCounter");
 const SoundIcon = document.getElementById("SoundIcon");
 const FallingRamContainer = document.getElementById("FallingRamContainer");
 const RamImageSrc = "./static/images/RamImage.svg";
+
+
+const canvas = document.createElement("canvas");
+canvas.id = "FallingRamCanvas";
+canvas.style.pointerEvents = "none";
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+FallingRamContainer.appendChild(canvas);
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
 let RamSticks = [];
+const MaxRamSticks = 15;
+const RamImage = new Image();
+RamImage.src = RamImageSrc;
 
 function GetRandomInt(Max) {
   return Math.floor(Math.random() * Max);
 }
 
 function SpawnRamStick() {
-  const Scale = 0.15 + Math.random() * 0.15;
-  const RamStick = document.createElement("img");
-  RamStick.src = RamImageSrc;
-  RamStick.className = "FallingRamStick";
-  RamStick.style.position = "absolute";
-  RamStick.style.left = Math.random() * window.innerWidth + "px";
-  RamStick.style.top = "-100px";
-  RamStick.style.width = 300 * Scale + "px";
-  RamStick.style.pointerEvents = "none";
-  RamStick.dataset.speed = 1 + Math.random() * 2;
-  RamStick.dataset.angle = Math.random() * Math.PI * 2;
-  RamStick.dataset.spin = (1 + Math.random() * 2) / 50;
-  RamStick.dataset.scale = Scale;
-  FallingRamContainer.appendChild(RamStick);
-  RamSticks.push(RamStick);
+  if (RamSticks.length >= MaxRamSticks) return;
+  const Scale = 60 + Math.random() * 60;
+  RamSticks.push({
+    x: Math.random() * canvas.width,
+    y: -100,
+    width: Scale,
+    height: Scale,
+    speed: 2 + Math.random() * 2,
+    angle: Math.random() * Math.PI * 2,
+    spin: (1 + Math.random() * 2) / 50,
+    scale: Scale,
+  });
 }
 
 function UpdateRamSticks() {
   for (let i = RamSticks.length - 1; i >= 0; i--) {
-    const RamStick = RamSticks[i];
-    let top = parseFloat(RamStick.style.top);
-    let angle = parseFloat(RamStick.dataset.angle);
-    top += parseFloat(RamStick.dataset.speed);
-    angle += parseFloat(RamStick.dataset.spin) * 0.5;
-    RamStick.style.top = top + "px";
-    RamStick.style.transform = `rotate(${angle}rad)`;
-    RamStick.dataset.angle = angle;
-    if (top - parseFloat(RamStick.style.height) > window.innerHeight) {
-      FallingRamContainer.removeChild(RamStick);
+    const stick = RamSticks[i];
+    stick.y += stick.speed;
+    stick.angle += stick.spin;
+    if (stick.y - stick.height > canvas.height) {
       RamSticks.splice(i, 1);
     }
   }
 }
 
+function DrawRamSticks(ctx) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const stick of RamSticks) {
+    ctx.save();
+    ctx.translate(stick.x + stick.width / 2, stick.y + stick.height / 2);
+    ctx.rotate(stick.angle);
+    ctx.drawImage(
+      RamImage,
+      -stick.width / 2,
+      -stick.height / 2,
+      stick.width,
+      stick.height
+    );
+    ctx.restore();
+  }
+}
+
 function AnimateRamSticks() {
   UpdateRamSticks();
+  DrawRamSticks(canvas.getContext("2d"));
   requestAnimationFrame(AnimateRamSticks);
 }
 
-AnimateRamSticks();
+requestAnimationFrame(AnimateRamSticks);
 
 document.addEventListener("keydown", (Event) => {
   if (Event.key === "Escape") {
@@ -205,7 +231,7 @@ async function InitShop() {
     }
     UpdateShopAvailability();
   } catch (error) {
-    console.error("Error fetching data:", error);
+    Notification("Error fetching data!");
   }
 }
 
