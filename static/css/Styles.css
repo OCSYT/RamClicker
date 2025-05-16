@@ -184,11 +184,6 @@ button:hover {
   z-index: 1;
 }
 
-.FallingRamStick {
-  will-change: transform, top, left;
-  user-select: none;
-}
-
 .FallingRamContainer {
   position: fixed;
   top: 0;
