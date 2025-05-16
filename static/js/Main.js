@@ -23,7 +23,7 @@ window.addEventListener("resize", () => {
 });
 
 let RamSticks = [];
-const MaxRamSticks = 15;
+const MaxRamSticks = 25;
 const RamImage = new Image();
 RamImage.src = RamImageSrc;
 
@@ -33,7 +33,7 @@ function GetRandomInt(Max) {
 
 function SpawnRamStick() {
   if (RamSticks.length >= MaxRamSticks) return;
-  const Scale = 60 + Math.random() * 60;
+  const Scale = 50 + Math.random() * 50;
   RamSticks.push({
     x: Math.random() * canvas.width,
     y: -100,
@@ -46,11 +46,17 @@ function SpawnRamStick() {
   });
 }
 
+let LastUpdate = performance.now();
+
 function UpdateRamSticks() {
+  const Now = performance.now();
+  const DeltaTime = (Now - LastUpdate) / 1000;
+  LastUpdate = Now;
+
   for (let i = RamSticks.length - 1; i >= 0; i--) {
     const stick = RamSticks[i];
-    stick.y += stick.speed;
-    stick.angle += stick.spin;
+    stick.y += stick.speed * DeltaTime * 100;
+    stick.angle += stick.spin * DeltaTime * 100;
     if (stick.y - stick.height > canvas.height) {
       RamSticks.splice(i, 1);
     }
