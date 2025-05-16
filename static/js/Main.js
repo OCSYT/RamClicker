@@ -91,7 +91,7 @@ const DefaultPlayerData = {
   Sound: true,
   CurrentUpgrades: [],
 };
-let CurrentPlayerData = Object.assign({}, DefaultPlayerData);
+let CurrentPlayerData = DefaultPlayerData;
 
 function ToggleSound() {
   CurrentPlayerData.Sound = !CurrentPlayerData.Sound;
@@ -129,10 +129,11 @@ function LoadGame() {
   }
   UpdateSoundIcon(CurrentPlayerData.Sound);
 }
+
 function ResetGame() {
   const PrevSound = CurrentPlayerData.Sound;
   if (confirm("Are you sure you want to reset the game?")) {
-    CurrentPlayerData = Object.assign({}, DefaultPlayerData);
+    CurrentPlayerData = DefaultPlayerData;
     CurrentPlayerData.Sound = PrevSound;
     localStorage.removeItem("RAMClickerSave");
     UpdateRAMCounter(0);
