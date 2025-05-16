@@ -1,4 +1,3 @@
-// DOM Elements
 const RAMElement = document.getElementById("RAM");
 const RAMCounter = document.getElementById("RAMCounter");
 const RAMIncreaseCounterParent = document.getElementById("RAMIncreaseParent");
